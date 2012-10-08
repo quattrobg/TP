@@ -11,7 +11,7 @@
 
 int enterY(int x);
 
-int sumOdd(int x, int y);
+void findFib(int x, int y);
 
 int main(){
 
@@ -22,8 +22,8 @@ int main(){
 	getchar();
 
 	y = enterY(x);
-	
-	printf("Rezultat : %d\n", sumOdd(x, y));
+		
+	findFib(x, y);
 
 	return 0;
 }
@@ -38,12 +38,16 @@ int enterY(int x){
 	return y;
 }
 
-int sumOdd(int x, int y){
-	int i, sum = 0;
-	for(i=x; i<=y; i++){
-		if(i%2==1) sum+=i;
+void findFib(int x, int y){
+	int i, f = 0, s = 1, fib;
+	for(i=0; i <= y; i++){
+		if(i <= 1){
+			fib = i;
+		}else{
+			fib = f + s;
+			f = s;
+			s = fib;
+		}
+		if((fib >= x) && (fib <= y)) printf("%d \n", fib);
 	}
-	return sum;
 }
-
-

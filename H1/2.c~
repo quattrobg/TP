@@ -11,7 +11,7 @@
 
 int enterY(int x);
 
-int sumOdd(int x, int y);
+int sumSt(int x, int y);
 
 int main(){
 
@@ -20,10 +20,10 @@ int main(){
 	printf("Vuvedi X : ");
 	scanf("%d", &x);
 	getchar();
-
+	
 	y = enterY(x);
 	
-	printf("Rezultat : %d\n", sumOdd(x, y));
+	printf("Rezultat : %d\n", sumSt(x, y));
 
 	return 0;
 }
@@ -38,12 +38,10 @@ int enterY(int x){
 	return y;
 }
 
-int sumOdd(int x, int y){
+int sumSt(int x, int y){
 	int i, sum = 0;
 	for(i=x; i<=y; i++){
-		if(i%2==1) sum+=i;
+		if(i%17==0) sum+=i;
 	}
 	return sum;
 }
-
-

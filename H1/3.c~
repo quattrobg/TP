@@ -11,24 +11,26 @@
 
 int enterY(int x);
 
-int sumOdd(int x, int y);
+void findPrime(int i);
 
 int main(){
 
-	int x, y;
+	int x, y, i, j;
 	
 	printf("Vuvedi X : ");
 	scanf("%d", &x);
 	getchar();
-
-	y = enterY(x);
 	
-	printf("Rezultat : %d\n", sumOdd(x, y));
+	y = enterY(x);
+
+	for(i=x; i<=y; i++){
+		if(i%10 == 3) findPrime(i);
+	}
 
 	return 0;
 }
 
-int enterY(int x){
+int enterY(int x){	
 	int y;
 	do{
 		printf("Vuvedi Y>X : ");
@@ -38,12 +40,10 @@ int enterY(int x){
 	return y;
 }
 
-int sumOdd(int x, int y){
-	int i, sum = 0;
-	for(i=x; i<=y; i++){
-		if(i%2==1) sum+=i;
+void findPrime(int i){
+	int j;
+	for(j=2; j<=i; j++){
+		if(i%j == 0) break;
 	}
-	return sum;
+	if(j == i) printf("%d", i);
 }
-
-

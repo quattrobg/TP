@@ -7,43 +7,31 @@
 Да се намери сумата на всички нечетни числа в интервала [x,y].
 */
 
-#include<stdio.h>
+#include <stdio.h>
 
-int enterY(int x);
-
-int sumOdd(int x, int y);
-
-int main(){
-
-	int x, y;
+int main()
+{
+	float x, p = 4.0;
+	int i, c = 3, s;
 	
-	printf("Vuvedi X : ");
-	scanf("%d", &x);
-	getchar();
-
-	y = enterY(x);
+	do
+	{
+		printf("Vuvedi X : ");
+		scanf("%d", &x);
+		getchar();
+	}while((x <= 0) && (x >= 1));
 	
-	printf("Rezultat : %d\n", sumOdd(x, y));
-
+	for(i = 0; i < 10; i++)
+	{
+		if(i % 2 == 0)
+			p -= p/c;
+		else
+			p += p/c;
+		if(4/c < x) break;
+		c += 2;
+	}
+	
+	printf("p = %f\n", p);
+	
 	return 0;
 }
-
-int enterY(int x){
-	int y;
-	do{
-		printf("Vuvedi Y>X : ");
-		scanf("%d", &y);
-		getchar();
-	}while(x>=y);
-	return y;
-}
-
-int sumOdd(int x, int y){
-	int i, sum = 0;
-	for(i=x; i<=y; i++){
-		if(i%2==1) sum+=i;
-	}
-	return sum;
-}
-
-

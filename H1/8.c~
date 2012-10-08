@@ -9,41 +9,37 @@
 
 #include<stdio.h>
 
-int enterY(int x);
+#define MAX 10
 
-int sumOdd(int x, int y);
-
-int main(){
-
-	int x, y;
+int main()
+{
+	int x, i, c = 0, f = 0, s = 1, a, arr[MAX];
 	
-	printf("Vuvedi X : ");
-	scanf("%d", &x);
-	getchar();
-
-	y = enterY(x);
+	do
+	{
+		printf("Vuvedi X : ");
+		scanf("%d", &x);
+		getchar();
+	}while((x < 0) && (x >= 10));
 	
-	printf("Rezultat : %d\n", sumOdd(x, y));
-
+	for(i=0; ; i++)
+	{
+		if(i <= 1)
+		{
+			a = i;
+		}else{
+			a = f + s;
+			f = s;
+			s = a;
+		}
+		if(a % x == 0) arr[c++] = a;
+		if(c == MAX) break;
+	}
+	
+	for(i = 0; i < MAX; i++)
+	{
+		printf("%d. = %d\n", i, arr[i]);
+	}
+	
 	return 0;
 }
-
-int enterY(int x){
-	int y;
-	do{
-		printf("Vuvedi Y>X : ");
-		scanf("%d", &y);
-		getchar();
-	}while(x>=y);
-	return y;
-}
-
-int sumOdd(int x, int y){
-	int i, sum = 0;
-	for(i=x; i<=y; i++){
-		if(i%2==1) sum+=i;
-	}
-	return sum;
-}
-
-
