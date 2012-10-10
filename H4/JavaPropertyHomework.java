@@ -16,7 +16,7 @@ public class JavaPropertyHomework{
 		for(int i=0; i<n; i++){
 			arr[i]=System.getProperty(args[i]);
 			if(arr[i] == null){
-				arr[i] = "Invalid";
+				arr[i] = "error";
 			}
 		}
 
@@ -27,7 +27,7 @@ public class JavaPropertyHomework{
 		}
 
 		for(String str:arr){
-			if(str != "Invalid"){
+			if(str != "error"){
 				System.out.println(str);
 			}
 		}
