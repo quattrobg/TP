@@ -32,7 +32,9 @@ while(inputVal != "=")
 			end
 		when "+"
 			res = list[list.length-1] + list[list.length-2]
-		end
+		else
+			puts "WRONG!"
+	end		
 end
 
 puts res.to_s
