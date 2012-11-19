@@ -1,14 +1,35 @@
-require 'net/http'  
+require 'net/http'
+require 'uri'
+require 'open-uri'
 
 class Site
+	@@link = "http://en.wikipedia.org/wiki/Minas_Tirith"
+	@@protocol = "bob"
 
+#	def initialize
+		if @@link.include? 'https'
+			@@protocol = "https"
+		else
+			@@protocol = "http"
+		end
+#	end
+
+	def link; @@link; end
+	def protocol; @@protocol; end
+	
+	def pages
+		page = Page.new
+		page.links
+	end
 end
 
 class Link  
-	attr_accessor :value
+	@@link = "http://en.wikipedia.org/wiki/Minas_Tirith"
+
+	def link; @@link; end
 
 	def download  
-		http_response = Net::HTTP.get_response(URI.parse(value))  
+		http_response = Net::HTTP.get_response(URI.parse(@@link))  
 		
 		File.open('content.html', 'w') do |infile|
 			infile.write(http_response.body)
@@ -18,29 +39,25 @@ class Link
 end
 
 class Page
+	@@link = "http://en.wikipedia.org/wiki/Minas_Tirith"
 
-	def viewContent
-		File.open("content.html", "r") do |infile|
-   			 while (line = infile.gets)
-        			puts line
-    			end
-		end
-	end
+	http_response = Net::HTTP.get_response(URI.parse(@@link))
+	@@content = http_response.body
 
-	def getLinks
-		links = Hash.new
-		File.open('content.html', 'r') do |infile|
-			while(line = infile.gets)
-				 
-			end
+	@@links = @@content.scan(/a *?href *?= *?\"(.*?)"/)
+
+	def link=(val); @@link = val; end
+	def content=(val); @@content = val; end
+
+	def link; @@link; end
+	def content; @@content; end
+	
+	def links
+#		@@links.each do |l|
+#			puts l
+#		end
+		for i in 0..25
+			puts @@links[i]
 		end
 	end
 end
-
-s = Link.new
-s.value = 'http://en.wikipedia.org/wiki/Tuesday'
-s.download 
-
-p = Page.new
-
-p.viewContent
