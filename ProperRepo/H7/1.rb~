@@ -1,0 +1,146 @@
+# Технологично училище Електронни системи - http://www.elsys-bg.org/
+# 11б
+# 18
+# Иван Пейчинов
+# Целта на занятието е да се реши задача свързана с обмен и обработка на много csv файлове
+
+require "csv"
+
+class Popular
+	@@mostPop=Array.new(30, 0)
+
+	def initialize
+		lists=Dir.glob("*.csv")
+
+		for i in 0..30
+			@@mostPop[i]=0
+		end
+
+		for l in lists
+			CSV.foreach(l) do |row|
+				@@mostPop[row[0].to_i-1]+=1
+			end
+		end
+	end
+
+	def mostPopular
+		most=0
+		@@mostPop.each do |ppl|
+			if most<ppl
+				most=ppl
+			end
+		end
+
+		print "Most popular : "
+
+		for i in 0..29
+			if @@mostPop[i]==most
+				puts "#{i+1} "
+				puts @@mostPop[i]
+			end
+		end
+	end
+
+	def leastPopular
+		least=0
+		@@mostPop.each do |ppl|
+			if least>ppl
+				least=ppl
+			end
+		end
+
+		print "Least popular : "
+
+		for i in 0..29
+			if @@mostPop[i]==least
+				puts "#{i+1} "
+				puts @@mostPop[i]
+			end
+		end
+	end
+end
+
+class UglyArr
+	def initialize
+		@arr=Array.new(30){Array.new(30)}
+	end
+
+	def setAll(val)
+		for i in 0..num
+			for j in 0..fr
+				@arr[i][j]=0
+			end
+		end
+	end
+
+	def ret(num,fr)
+		return @arr[num][fr]
+	end
+
+	def plus(num,fr,val)
+		@arr[num][fr]=val
+	end
+
+	def most(num, fr)
+		max=0
+		for i in 0..num
+			for j in 0..fr
+				if @arr[i][j]>max
+					max=@arr[i][j]
+				end
+			end
+		end
+
+		for i in 0..num
+			for j in 0..fr
+				if @arr[i][j]==max
+					return j
+				end
+			end
+		end
+	end
+end
+
+class Friendly
+	@bestFr=UglyArr.new
+
+#	def initialize
+#		for i in 0..30
+#			for j in 0..30
+#				@bestFr.plus i, j, 0
+#			end
+#		end
+#	end
+
+	def initialize
+		@bestFr.setAll(0)
+	end
+
+	def give
+		lists=Dir.glob("*.csv")
+
+		for l in lists
+			num=0
+			fr=0
+			CSV.foreach(l) do |row|
+				if(num!=0)
+					@bestFr.plus(fr, num, @bestFr.ret(fr, num)+1)
+				end
+				num+=1
+				fr=row[0].to_i
+			end
+		end
+		
+		for i in 0..29
+			print "#{i} -> "
+			print @bestFr.most 30, 30
+		end
+	end
+end
+
+p=Popular.new
+p.mostPopular
+p.leastPopular
+
+f=Friendly.new
+f.give
